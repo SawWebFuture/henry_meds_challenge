@@ -73,7 +73,7 @@ class _ClientReserveState extends State<ClientReserve> {
               const SizedBox(height: 20),
               const Center(
                 child: Text(
-                  'Select your available times',
+                  'Select a slot to Reserve:',
                   style: TextStyle(fontSize: 20),
                 ),
               ),

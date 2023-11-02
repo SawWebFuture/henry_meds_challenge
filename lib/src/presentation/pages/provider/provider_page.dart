@@ -46,7 +46,10 @@ class _ProviderPageState extends State<ProviderPage> {
     '3:00 PM',
   ];
 
-  void snackBar({required BuildContext context, bool isSuccess = false}) {
+  void snackBar(
+      {required BuildContext context,
+      bool isSuccess = false,
+      bool isEmpty = false}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: isSuccess
@@ -55,7 +58,9 @@ class _ProviderPageState extends State<ProviderPage> {
                 style:
                     TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
               )
-            : const Text('Time out of range'),
+            : isEmpty
+                ? const Text('Please add a day and time')
+                : const Text('Time out of range'),
         duration: const Duration(seconds: 3),
         backgroundColor: isSuccess ? Colors.green : Colors.red,
       ),
@@ -260,8 +265,12 @@ class _ProviderPageState extends State<ProviderPage> {
             ),
             CustomSubmitButton(onTap: () {
               //TODO: update content to backend
-              snackBar(context: context, isSuccess: true);
-              Navigator.pop(context);
+              if (addedTimes.isNotEmpty) {
+                snackBar(context: context, isSuccess: true);
+                Navigator.pop(context);
+              } else {
+                snackBar(context: context, isEmpty: true);
+              }
             }),
           ],
         ),
